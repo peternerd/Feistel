@@ -20,28 +20,16 @@ public class Test {
         1   0   |1
         1   1   |0
         */
-        String msj = "diamantes";
+        String msj = "diamante";
         String clave = "diamante";
-        
-        int n = msj.length();
-        int mitad= msj.length()/2;
-        int nBits = n*8;
-        int mitadBits= mitad*8;
-        byte msjBytes[] = msj.getBytes();
-        //System.out.println(msjBytes[0]);
-        String bits = Integer.toBinaryString(msjBytes[0]);
-        //System.out.println(bits);
-        //System.out.println(mitadBits);
-        
+        String binario;
         Feistel f = new Feistel();
-        f.getBloques(msj);
-        System.out.println(f.xor("1101","110"));
-        Long l = Long.parseUnsignedLong("9223372036854775807");
-        Long l2 =Long.parseUnsignedLong("9223372036854775809");
-        Long l3 = Long.valueOf(l.longValue()^l2.longValue());
-        System.out.println(Long.toBinaryString(l.longValue()));
-        System.out.println(Long.toBinaryString(l2.longValue()));
-        System.out.println(Long.toBinaryString(l3.longValue()));
+        byte msjBytes[] = msj.getBytes();
+        binario = f.binario(msjBytes);
+        System.out.println(binario);
+        System.out.println(f.ronda(binario, clave));
+         
+        
        
 	
     }
