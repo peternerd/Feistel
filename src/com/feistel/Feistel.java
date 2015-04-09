@@ -73,9 +73,9 @@ public class Feistel {
         this.izquierda = Long.parseLong(primerMitad, 2);
         this.derecha = Long.parseLong(segundaMitad, 2);
         Long derechaInicial = derecha;
-        this.clave = Long.parseLong(key,2);
+        this.clave = Long.parseUnsignedLong(key,2);
         //Se aplica la funcion XOR a la parte derecha del mensaje con la clave
-        this.derecha = this.derecha^this.clave;
+        this.derecha = modulo32(this.derecha^this.clave);
         //Se hace XOR a la parte derecha con la izquierda
         this.derecha = this.derecha^this.izquierda;
         //el bloque izquierdo ahora toma el valor del valor que tenia el bloque derecho
@@ -85,7 +85,7 @@ public class Feistel {
         primerMitad = completarBits(primerMitad,32);
         segundaMitad = Long.toBinaryString(this.derecha);
         segundaMitad = completarBits(segundaMitad,32);
-        System.out.println(primerMitad.length());
+        System.out.println(segundaMitad.length());
         this.mensaje = primerMitad+segundaMitad;
         return mensaje;
     }
@@ -118,6 +118,10 @@ public class Feistel {
         int nbloques = (int)Math.ceil(getLongitudMensaje(msj)/8.0);
         byte bloques[][]=new byte[nbloques][8];
         return bloques;
+    }
+    
+    public Long modulo32(Long l){
+        return l % ((long)Math.pow(2, 32));
     }
     
 }

@@ -22,12 +22,17 @@ public class Test {
         */
         String msj = "diamante";
         String clave = "diamante";
-        String binario;
+        String msjBinario;
+        String keyBinario;
+        
         Feistel f = new Feistel();
         byte msjBytes[] = msj.getBytes();
-        binario = f.binario(msjBytes);
-        System.out.println(binario);
-        System.out.println(f.ronda(binario, clave));
+        byte keyBytes[] = clave.getBytes();
+        msjBinario = f.binario(msjBytes);
+        keyBinario = f.binario(keyBytes);
+        
+        System.out.println(msjBinario);
+        System.out.println(f.ronda(msjBinario, keyBinario));
          
         
        
