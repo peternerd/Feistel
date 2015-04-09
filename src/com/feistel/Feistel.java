@@ -60,22 +60,24 @@ public class Feistel {
      * @param key clave de 64 bits
      * @return 
      */
-    public String ronda(String bloque64Bits,String key){
+    public String rondaCifrado(String bloque64Bits,String key){
         //define el total de bits en 64 bits
         int n =64;
         //mitad de bits (32 bits)
         int mitad = n/2;
+        String primerMitad="";
+        String segundaMitad="";
         //obtiene los primeros 32 bits del bloque
-        String primerMitad = bloque64Bits.substring(0,mitad);
+        primerMitad = bloque64Bits.substring(0,mitad);
         //obtiene los segundos 32 bits del bloque
-        String segundaMitad = bloque64Bits.substring(mitad,n);
+        segundaMitad = bloque64Bits.substring(mitad,n);
         //convierte el numero binario a un objeto Long 
         this.izquierda = Long.parseLong(primerMitad, 2);
         this.derecha = Long.parseLong(segundaMitad, 2);
         Long derechaInicial = derecha;
         this.clave = Long.parseUnsignedLong(key,2);
-        //Se aplica la funcion XOR a la parte derecha del mensaje con la clave
-        this.derecha = modulo32(this.derecha^this.clave);
+       //Se aplica la funcion f a la parte derecha con la clave
+        this.derecha = funcion(this.derecha,this.clave);
         //Se hace XOR a la parte derecha con la izquierda
         this.derecha = this.derecha^this.izquierda;
         //el bloque izquierdo ahora toma el valor del valor que tenia el bloque derecho
@@ -85,7 +87,37 @@ public class Feistel {
         primerMitad = completarBits(primerMitad,32);
         segundaMitad = Long.toBinaryString(this.derecha);
         segundaMitad = completarBits(segundaMitad,32);
-        System.out.println(segundaMitad.length());
+        this.mensaje = primerMitad+segundaMitad;
+        return mensaje;
+    }
+    
+    public String rondaDescifrado(String bloque64Bits,String key){
+         //define el total de bits en 64 bits
+        int n =64;
+        //mitad de bits (32 bits)
+        int mitad = n/2;
+        String primerMitad="";
+        String segundaMitad="";
+        //obtiene los primeros 32 bits del bloque
+        primerMitad = bloque64Bits.substring(0,mitad);
+        //obtiene los segundos 32 bits del bloque
+        segundaMitad = bloque64Bits.substring(mitad,n);
+        //convierte el numero binario a un objeto Long 
+        this.izquierda = Long.parseLong(primerMitad, 2);
+        this.derecha = Long.parseLong(segundaMitad, 2);
+        Long izquierdaInicial = izquierda;
+        this.clave = Long.parseUnsignedLong(key,2);
+        //Se aplica la funcion f a la parte izquierda con la clave
+        this.izquierda = funcion(this.izquierda,this.clave);
+        //Se hace XOR a la parte derecha con la izquierda
+        this.izquierda = this.izquierda^this.derecha;
+        //el bloque izquierdo ahora toma el valor del valor que tenia el bloque derecho
+        this.derecha=izquierdaInicial;
+        //
+        primerMitad = Long.toBinaryString(this.izquierda);
+        primerMitad = completarBits(primerMitad,32);
+        segundaMitad = Long.toBinaryString(this.derecha);
+        segundaMitad = completarBits(segundaMitad,32);
         this.mensaje = primerMitad+segundaMitad;
         return mensaje;
     }
@@ -123,5 +155,15 @@ public class Feistel {
     public Long modulo32(Long l){
         return l % ((long)Math.pow(2, 32));
     }
+    
+    private Long funcion(Long parte, Long key){
+        Long resultadoFuncion = modulo32(parte^key);
+        return resultadoFuncion;
+    }
+    
+    public String getMensaje(){
+        return this.mensaje;
+    }
+    
     
 }
