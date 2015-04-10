@@ -34,9 +34,7 @@ public class Test {
         System.out.println(msjBinario);
         System.out.println(f.rondaCifrado(msjBinario, keyBinario));
         System.out.println(f.getMensaje()+"\t cifrado");
-        System.out.println(f.rondaDescifrado(f.getMensaje(), keyBinario));
-        System.out.println("00100011010010110000101101101".length());
-         
+        System.out.println(f.rondaDescifrado(f.getMensaje(), keyBinario));         
         
        
 	

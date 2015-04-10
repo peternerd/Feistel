@@ -18,6 +18,7 @@ public class Feistel {
     
     //mensaje almacena el mensaje a encriptar/desencriptar
     private String mensaje;
+    private String claveBits;
     //clave es la clave inicial que se usa para encriptar
     private Long clave;
     //bloque derecho
@@ -165,5 +166,25 @@ public class Feistel {
         return this.mensaje;
     }
     
+    public void setMensaje(String msj){
+        
+    }
+    
+    public void setClaveBits(String clave){
+        this.claveBits = binario(clave.getBytes());
+    }
+    
+    public void cifrar(){
+        for(int i=0;i<16;i++){
+            rondaCifrado(this.mensaje,this.claveBits);
+        }
+        
+    }
+    
+    public void descifrar(){
+        for(int i=0;i<16;i++){
+            rondaDescifrado(this.mensaje,this.claveBits);
+        }
+    }
     
 }
