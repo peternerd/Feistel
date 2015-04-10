@@ -167,7 +167,7 @@ public class Feistel {
     }
     
     public void setMensaje(String msj){
-        
+        this.mensaje = binario(msj.getBytes());
     }
     
     public void setClaveBits(String clave){
@@ -176,14 +176,14 @@ public class Feistel {
     
     public void cifrar(){
         for(int i=0;i<16;i++){
-            rondaCifrado(this.mensaje,this.claveBits);
+            this.mensaje = rondaCifrado(this.mensaje,this.claveBits);
         }
         
     }
     
     public void descifrar(){
         for(int i=0;i<16;i++){
-            rondaDescifrado(this.mensaje,this.claveBits);
+            this.mensaje = rondaDescifrado(this.mensaje,this.claveBits);
         }
     }
     

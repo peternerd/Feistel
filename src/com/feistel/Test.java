@@ -22,22 +22,17 @@ public class Test {
         */
         String msj = "diamante";
         String clave = "diamante";
-        String msjBinario;
-        String keyBinario;
         
         Feistel f = new Feistel();
-        byte msjBytes[] = msj.getBytes();
-        byte keyBytes[] = clave.getBytes();
-        msjBinario = f.binario(msjBytes);
-        keyBinario = f.binario(keyBytes);
         
-        System.out.println(msjBinario);
-        System.out.println(f.rondaCifrado(msjBinario, keyBinario));
-        System.out.println(f.getMensaje()+"\t cifrado");
-        System.out.println(f.rondaDescifrado(f.getMensaje(), keyBinario));         
+        f.setMensaje(msj);
+        System.out.println(f.getMensaje());
+        f.setClaveBits(clave);
+        f.cifrar();
+        System.out.println(f.getMensaje());
+        f.descifrar();
+        System.out.println(f.getMensaje());
         
-       
-	
     }
     
     
