@@ -153,7 +153,7 @@ public class Cifrador extends javax.swing.JFrame {
         key = txtClave.getText();
         f.setClaveBits(key);
         f.cifrar();
-        txtCifrado.setText(f.getMensaje());
+        txtCifrado.setText(f.binaryToString(f.getMensaje()));
     }//GEN-LAST:event_btnCifrarActionPerformed
 
     private void btnDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescifrarActionPerformed
@@ -163,7 +163,7 @@ public class Cifrador extends javax.swing.JFrame {
         key = txtClave.getText();
         f.setClaveBits(key);
         f.descifrar();
-        txtCifrado.setText(f.getMensaje());
+        txtCifrado.setText(f.binaryToString(f.getMensaje()));
     }//GEN-LAST:event_btnDescifrarActionPerformed
 
     /**

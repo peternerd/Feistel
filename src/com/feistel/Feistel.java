@@ -187,4 +187,22 @@ public class Feistel {
         }
     }
     
+    public String binaryToString(String binary){
+        
+        int n = binary.length()/8;
+        String msj="";
+        int asciicode;
+        int begin = 0;
+        int end = 8;
+        for(int i = 0; i < n; i++){
+            String cadena = binary.substring(begin, end);
+            System.out.println(cadena);
+            msj+=(char)Integer.parseInt(cadena,2);
+            begin = end;
+            end=end+8;
+        }
+        
+        return msj;
+    }
+    
 }
